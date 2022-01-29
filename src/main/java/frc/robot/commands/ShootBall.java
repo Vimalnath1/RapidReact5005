@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ShootBall extends CommandBase {
   Shooter shooter;
+  String ballcolor;
   /** Creates a new ShootBall. */
   public ShootBall(Shooter subsystem) {
     shooter=subsystem;
@@ -23,7 +24,9 @@ public class ShootBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.shootball(0.2);
+    shooter.shootball(1.0);
+    ballcolor=shooter.getColor();
+    System.out.println(ballcolor);
   }
 
   // Called once the command ends or is interrupted.

@@ -28,13 +28,14 @@ public class DefaultDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.drive(leftvalue.getAsDouble(),rightvalue.getAsDouble());
+    //drivetrain.tankdrive(leftvalue.getAsDouble(),rightvalue.getAsDouble());
+    drivetrain.turnanddrive(leftvalue.getAsDouble(), rightvalue.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drivetrain.drive(0,0);
+    drivetrain.tankdrive(0,0);
   }
 
   // Returns true when the command should end.

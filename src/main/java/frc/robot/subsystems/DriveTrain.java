@@ -19,9 +19,25 @@ public class DriveTrain extends SubsystemBase {
     leftback=new Spark(0);
     rightback=new Spark(1);
   }
-  public void drive(double leftamount,double rightamount){
+  public void tankdrive(double leftamount,double rightamount){
     leftback.set(leftamount);
     rightback.set(rightamount);
+    System.out.println(leftamount);
+    System.out.println(rightamount);
+  }
+  public void turnanddrive(double xAxis,double yAxis){
+    if (xAxis<0 && yAxis>0 || xAxis>0 && yAxis<0){
+      leftback.set(yAxis);
+      rightback.set(yAxis-xAxis);
+    }
+    else if(xAxis>0 && yAxis>0||xAxis<0 && yAxis<0){
+      leftback.set(yAxis+xAxis);
+      rightback.set(yAxis);
+    }
+    else{
+      leftback.set(yAxis);
+      rightback.set(yAxis);
+    }
   }
   @Override
   public void periodic() {

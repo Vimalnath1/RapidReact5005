@@ -25,14 +25,16 @@ public class RobotContainer {
   private final Shooter m_shooter=new Shooter();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  private Joystick controller=new Joystick(0);
+  private Joystick controller=new Joystick(1);
+  private Joystick controller1=new Joystick(0);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
     m_drivetrain.setDefaultCommand(
-      new DefaultDrive(m_drivetrain,()->controller.getRawAxis(1),() -> controller.getRawAxis(1))
-    );
+      //new DefaultDrive(m_drivetrain,()->controller.getRawAxis(1),() -> controller1.getRawAxis(1))
+      new DefaultDrive(m_drivetrain,()->controller.getRawAxis(0)*-1, ()->controller.getRawAxis(1)*-1)
+      );
   }
 
   /**
@@ -42,7 +44,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(controller,5).whileHeld(new ShootBall(m_shooter));
+    new JoystickButton(controller,6).whileHeld(new ShootBall(m_shooter));
   }
 
   /**
