@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.CANSparkMax;
@@ -14,7 +15,6 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 
 public class Shooter extends SubsystemBase {
   private final I2C.Port colorsensorport=I2C.Port.kOnboard;
@@ -31,8 +31,8 @@ public class Shooter extends SubsystemBase {
   private CANSparkMax motor;
   private static final int deviceID = 4;
   /** Creates a new Shooter. **/
-  Spark shooter1=new Spark(2);
-  Spark shooter2=new Spark(3);
+  Spark shooter1=new Spark(Constants.shooterrightnumber);
+  Spark shooter2=new Spark(Constants.shooterleftnumber);
   public Shooter() {
     colorMatcher.addColorMatch(blueBall);
     colorMatcher.addColorMatch(redBall);

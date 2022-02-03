@@ -23,6 +23,7 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveTrain m_drivetrain=new DriveTrain();
   private final Shooter m_shooter=new Shooter();
+  private  final Loader m_loader = new Loader();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   private Joystick controller=new Joystick(1);
@@ -44,7 +45,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(controller,6).whileHeld(new ShootBall(m_shooter));
+    new JoystickButton(controller,1).whileHeld(new ShootBall(m_shooter));
+    new JoystickButton(controller,4).whileHeld(new LoadBall(m_loader));
+    new JoystickButton(controller,3).whileHeld(new LineUpToShoot(m_drivetrain));
+
   }
 
   /**

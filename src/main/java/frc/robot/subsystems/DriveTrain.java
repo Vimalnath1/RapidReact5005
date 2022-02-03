@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 
 public class DriveTrain extends SubsystemBase {
@@ -16,14 +17,14 @@ public class DriveTrain extends SubsystemBase {
   public DriveTrain() {
     //leftfront=new Spark(1);
     //rightfront=new Spark(2);
-    leftback=new Spark(0);
-    rightback=new Spark(1);
+    leftback=new Spark(Constants.leftbacknumber);
+    rightback=new Spark(Constants.rightbacknumber);
   }
   public void tankdrive(double leftamount,double rightamount){
     leftback.set(leftamount);
     rightback.set(rightamount);
-    System.out.println(leftamount);
-    System.out.println(rightamount);
+    //System.out.println(leftamount);
+    //System.out.println(rightamount);
   }
   public void turnanddrive(double xAxis,double yAxis){
     if (xAxis<0 && yAxis>0 || xAxis>0 && yAxis<0){
