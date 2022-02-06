@@ -10,16 +10,21 @@ import frc.robot.Constants;
 
 public class Loader extends SubsystemBase {
   /** Creates a new Loader. */
-  Spark loaderwindowmotor;
-  Spark loadermotor1;
-  Spark loadermotor2;
+  Spark windowmotor;
+  Spark loadermotor;
   public Loader() {
-    loaderwindowmotor=new Spark(Constants.loaderwindowmotornumber);
-    loadermotor1=new Spark(Constants.loadermotor1);
-    loadermotor2=new Spark(Constants.loadermotor2);
+    loadermotor=new Spark(Constants.loadermotornumber);
   }
   public void loadball(double speed){
-    loaderwindowmotor.set(speed);
+    loadermotor.set(-speed);
+  }
+  public void releaseloader(double speed, boolean isInverted){
+    if (isInverted==true){
+    windowmotor.set(-speed);
+    }
+    else{
+      windowmotor.set(speed);
+    }
   }
 
   @Override

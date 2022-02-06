@@ -46,9 +46,10 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     new JoystickButton(controller,1).whileHeld(new ShootBall(m_shooter));
-    new JoystickButton(controller,4).whileHeld(new LoadBall(m_loader));
     new JoystickButton(controller,3).whileHeld(new LineUpToShoot(m_drivetrain));
-
+    new JoystickButton(controller,4).whileHeld(new LoadBall(m_loader));
+    new JoystickButton(controller,6).whileHeld(new ReleaseLoader(m_loader,false));
+    new JoystickButton(controller,7).whileHeld(new ReleaseLoader(m_loader,true));
   }
 
   /**

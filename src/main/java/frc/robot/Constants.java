@@ -17,9 +17,8 @@ public final class Constants {
     
     public static final int leftbacknumber = 0;
     public static final int rightbacknumber = 1;
-    public static final int shooterrightnumber = 2;
-    public static final int shooterleftnumber = 3;
-    public static final int loadermotor1 = 4;
-    public static final int loadermotor2 = 5;
-    public static final int loaderwindowmotornumber = 6;
+    public static final int shooterrightnumber = 3;
+    public static final int shooterleftnumber = 2;
+    public static final int windowmotornumber = 4;
+    public static final int loadermotornumber = 5;
 }
