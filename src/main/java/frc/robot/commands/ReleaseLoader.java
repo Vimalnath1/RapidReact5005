@@ -25,12 +25,14 @@ public class ReleaseLoader extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    loader.releaseloader(0.5,direction);
+    loader.releaseloader(1,direction);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    loader.releaseloader(0, direction);
+  }
 
   // Returns true when the command should end.
   @Override

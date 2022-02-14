@@ -14,6 +14,7 @@ public class Loader extends SubsystemBase {
   Spark loadermotor;
   public Loader() {
     loadermotor=new Spark(Constants.loadermotornumber);
+    windowmotor=new Spark(Constants.windowmotornumber);
   }
   public void loadball(double speed){
     loadermotor.set(-speed);
@@ -28,7 +29,7 @@ public class Loader extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {
+  public void periodic()   {
     // This method will be called once per scheduler run
   }
 }
