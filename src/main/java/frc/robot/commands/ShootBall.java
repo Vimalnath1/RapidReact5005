@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ShootBall extends CommandBase {
   Shooter shooter;
   String ballcolor;
+  double rpm;
   /** Creates a new ShootBall. */
   public ShootBall(Shooter subsystem) {
     shooter=subsystem;
@@ -26,7 +27,7 @@ public class ShootBall extends CommandBase {
   public void execute() {
     shooter.shootball(1);
     ballcolor=shooter.getColor();
-    //System.out.println(ballcolor);
+    System.out.println(ballcolor);
   }
 
   // Called once the command ends or is interrupted.

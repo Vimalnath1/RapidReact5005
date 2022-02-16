@@ -7,8 +7,12 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxRelativeEncoder;
+import com.revrobotics.SparkMaxAlternateEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
@@ -16,6 +20,7 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxRelativeEncoder.Type;
 
 public class Shooter extends SubsystemBase {
   private final I2C.Port colorsensorport=I2C.Port.kOnboard;
@@ -29,18 +34,39 @@ public class Shooter extends SubsystemBase {
   private String colorString;
   ColorMatchResult match;
   private SparkMaxPIDController pidController;
-
+  private RelativeEncoder encoder;
   private static final int deviceID =3;
+  private static final int countsPerRev = 4096;
+
   /** Creates a new Shooter. **/
   Spark shooter1=new Spark(Constants.shooterrightnumber);
   Spark shooter2=new Spark(Constants.shooterleftnumber);
-  CANSparkMax motor=new CANSparkMax(deviceID, MotorType.kBrushed);
-  //private RelativeEncoder encoder= motor.getEncoder();
+  CANSparkMax motor;
 
   public Shooter() {
     colorMatcher.addColorMatch(blueBall);
     colorMatcher.addColorMatch(redBall);
     colorMatcher.setConfidenceThreshold(0.95);
+    motor=new CANSparkMax(deviceID, MotorType.kBrushed);
+    encoder= motor.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, countsPerRev);
+    motor.restoreFactoryDefaults();
+    //System.out.println(encoder.getCountsPerRevolution());
+    pidController=motor.getPIDController();
+    pidController.setFeedbackDevice(encoder);
+    double kP = 0.1; 
+    double kI = 1e-4;
+    double kD = 1; 
+    double kIz = 0; 
+    double kFF = 0; 
+    double kMaxOutput = 1; 
+    double kMinOutput = -1;
+    pidController.setP(kP);
+    pidController.setI(kI);
+    pidController.setD(kD);
+    pidController.setIZone(kIz);
+    pidController.setFF(kFF);
+    pidController.setOutputRange(kMinOutput, kMaxOutput);
+    SmartDashboard.putNumber("Velocity", encoder.getVelocity());
   }
   public String getColor(){
     detectedColor=colorsensor.getColor();
@@ -60,7 +86,6 @@ public class Shooter extends SubsystemBase {
     shooter1.set(speed);
     shooter2.set(-speed);
     motor.set(speed);
-    //System.out.println(encoder.getVelocity());
   }
 
   @Override
