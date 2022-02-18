@@ -7,18 +7,21 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import edu.wpi.first.wpilibj.Encoder;
 
 public class DriveTrain extends SubsystemBase {
   Spark leftfront;
   Spark rightfront;
   Spark leftback;
   Spark rightback;
+  Encoder drivingEncoder; 
   /** Creates a new DriveTrain. */
   public DriveTrain() {
     //leftfront=new Spark(1);
     //rightfront=new Spark(2);
     leftback=new Spark(Constants.leftbacknumber);
     rightback=new Spark(Constants.rightbacknumber);
+    drivingEncoder= new Encoder(0, 1);
   }
   public void tankdrive(double leftamount,double rightamount){
     leftback.set(leftamount);
@@ -38,6 +41,19 @@ public class DriveTrain extends SubsystemBase {
     else{
       leftback.set(yAxis);
       rightback.set(yAxis);
+    }
+  }
+  public void driveDistance(double distance){
+    drivingEncoder.setDistancePerPulse(5);
+    double position=drivingEncoder.getDistance();
+    while(position-distance!=0){
+      position=drivingEncoder.getDistance();
+      if (position-distance<0){
+        tankdrive(-1,-1);
+      }
+      else if (position-distance>0){
+        tankdrive(1,1);
+      }
     }
   }
   @Override

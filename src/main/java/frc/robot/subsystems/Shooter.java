@@ -50,7 +50,7 @@ public class Shooter extends SubsystemBase {
     motor=new CANSparkMax(deviceID, MotorType.kBrushed);
     encoder= motor.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, countsPerRev);
     motor.restoreFactoryDefaults();
-    //System.out.println(encoder.getCountsPerRevolution());
+    System.out.println(encoder.getVelocity());
     pidController=motor.getPIDController();
     pidController.setFeedbackDevice(encoder);
     double kP = 0.1; 
@@ -66,7 +66,7 @@ public class Shooter extends SubsystemBase {
     pidController.setIZone(kIz);
     pidController.setFF(kFF);
     pidController.setOutputRange(kMinOutput, kMaxOutput);
-    SmartDashboard.putNumber("Velocity", encoder.getVelocity());
+    //SmartDashboard.putNumber("Velocity", encoder.getVelocity());
   }
   public String getColor(){
     detectedColor=colorsensor.getColor();

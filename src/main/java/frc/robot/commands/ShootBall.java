@@ -27,7 +27,7 @@ public class ShootBall extends CommandBase {
   public void execute() {
     shooter.shootball(1);
     ballcolor=shooter.getColor();
-    System.out.println(ballcolor);
+    //System.out.println(ballcolor);
   }
 
   // Called once the command ends or is interrupted.
