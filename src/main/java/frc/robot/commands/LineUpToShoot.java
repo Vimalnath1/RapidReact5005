@@ -53,6 +53,7 @@ public class LineUpToShoot extends CommandBase {
       SmartDashboard.putNumber("LimelightX", x);
       SmartDashboard.putNumber("LimelightY", y);
       double distanceFromGoal=getDistanceFromGoal(limelightheight, 96, limelightangle, y);
+      
       if (x>0.0/*if the crosshair is too right (change value if wrong)*/){
         drivetrain.tankdrive(0,minimumChange);      
       }
@@ -62,15 +63,11 @@ public class LineUpToShoot extends CommandBase {
       else{
         drivetrain.tankdrive(0,0);
       }
-      /*Kind of like the stuff above except instead of turning, it moves forward or backwards */
-      /*if (distanceFromGoal-desiredDistance>0.0){
+      
+      if (distanceFromGoal-desiredDistance>0.0){
         drivetrain.driveDistance(distanceFromGoal-desiredDistance);
-        Make new command. This command takes a distance in inches and 
-        using encoders or something, it will go that ammount.
       }
-      else if (distanceFromGoal-desiredDistance<0.0){
-        drivetrain.driveDistance(distanceFromGoal-desiredDistance);
-      }*/
+
    }
     else if (targetVisible==0){
       while (targetVisible==0.0){
