@@ -36,6 +36,7 @@ public class DefaultDrive extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     drivetrain.tankdrive(0,0);
+    drivetrain.turnanddrive(0, 0);
   }
 
   // Returns true when the command should end.

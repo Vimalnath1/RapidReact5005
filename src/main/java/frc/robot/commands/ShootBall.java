@@ -25,9 +25,9 @@ public class ShootBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.shootball(1);
+    shooter.shootball(0.7);
     ballcolor=shooter.getColor();
-    //System.out.println(ballcolor);
+    System.out.println(ballcolor);
   }
 
   // Called once the command ends or is interrupted.

@@ -18,7 +18,7 @@ public class ReleaseLoader extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
-  // Called when the command is initially scheduled.
+  // Called when the command is initially sch eduled.
   @Override
   public void initialize() {}
 
