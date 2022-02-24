@@ -34,11 +34,11 @@ public class LineUpToShoot extends CommandBase {
     targetVisible=NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
     System.out.println(targetVisible);
     while (targetVisible==0.0){
-      drivetrain.tankdrive(0.5,0);
+      drivetrain.turnanddrive(0.5,0.5);
       targetVisible=NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
     }
     if (targetVisible==1.0){
-      drivetrain.tankdrive(0,0);
+      drivetrain.turnanddrive(0.5,0.5);
     }
   }
 
@@ -52,21 +52,21 @@ public class LineUpToShoot extends CommandBase {
       double y = ty.getDouble(0.0);
       SmartDashboard.putNumber("LimelightX", x);
       SmartDashboard.putNumber("LimelightY", y);
-      double distanceFromGoal=getDistanceFromGoal(limelightheight, 96, limelightangle, y);
+      double distanceFromGoal=getDistanceFromGoal(limelightheight, 104, limelightangle, y);
       
       if (x>0.0/*if the crosshair is too right (change value if wrong)*/){
-        drivetrain.tankdrive(0,minimumChange);      
+        drivetrain.turnanddrive(minimumChange,minimumChange);      
       }
       else if (x<0.0/*if the crosshair is too left (change value if wrong)*/){
-       drivetrain.tankdrive(minimumChange,0);
+       drivetrain.turnanddrive(-minimumChange,-minimumChange);
       }
       else{
-        drivetrain.tankdrive(0,0);
+        drivetrain.turnanddrive(0,0);
       }
       
-      if (distanceFromGoal-desiredDistance>0.0){
+      /*if (distanceFromGoal-desiredDistance>0.0 || distanceFromGoal-desiredDistance<0.0){
         drivetrain.driveDistance(distanceFromGoal-desiredDistance);
-      }
+      }*/
 
    }
     else if (targetVisible==0){
@@ -76,7 +76,7 @@ public class LineUpToShoot extends CommandBase {
       }
     }
   }                                                                                                        //This is y
-    public double getDistanceFromGoal(double heightOfLimelight, double heightOfGoal, double angleOfLimelight,double Angle){
+    public static double getDistanceFromGoal(double heightOfLimelight, double heightOfGoal, double angleOfLimelight,double Angle){
       Angle+=angleOfLimelight;
       Angle=Math.toRadians(Angle);
       return (heightOfGoal-heightOfLimelight)/Math.tan(Angle);

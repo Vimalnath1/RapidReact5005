@@ -26,21 +26,19 @@ public class DriveTrain extends SubsystemBase {
   public void tankdrive(double leftamount,double rightamount){
     leftback.set(leftamount);
     rightback.set(rightamount);
-    //System.out.println(leftamount);
-    //System.out.println(rightamount);
   }
   public void turnanddrive(double xAxis,double yAxis){
-    if (xAxis<0 && yAxis>0 || xAxis>0 && yAxis<0){
-      leftback.set(yAxis);
-      rightback.set(yAxis-xAxis);
+    if (xAxis<-0.5){
+      leftback.set(xAxis);
+      rightback.set(xAxis);
     }
-    else if(xAxis>0 && yAxis>0||xAxis<0 && yAxis<0){
-      leftback.set(yAxis+xAxis);
-      rightback.set(yAxis);
+    else if (xAxis>0.5){
+      leftback.set(xAxis);
+      rightback.set(xAxis);
     }
     else{
-      leftback.set(yAxis);
-      rightback.set(yAxis);
+    leftback.set(-yAxis);
+    rightback.set(yAxis);
     }
   }
   public void driveDistance(double distance){
@@ -49,10 +47,10 @@ public class DriveTrain extends SubsystemBase {
     while(position-distance!=0){
       position=drivingEncoder.getDistance();
       if (position-distance<0){
-        tankdrive(-1,-1);
+        turnanddrive(-1, -1);
       }
       else if (position-distance>0){
-        tankdrive(1,1);
+        turnanddrive(1,1);
       }
     }
   }
