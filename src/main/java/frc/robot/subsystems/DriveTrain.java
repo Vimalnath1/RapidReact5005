@@ -27,7 +27,8 @@ public class DriveTrain extends SubsystemBase {
     leftback.set(leftamount);
     rightback.set(rightamount);
   }
-  public void turnanddrive(double xAxis,double yAxis){
+  public void turnanddrive(double xAxis,double yAxis, double limiter){
+
     if (xAxis<-0.5){
       leftback.set(xAxis);
       rightback.set(xAxis);
@@ -37,8 +38,16 @@ public class DriveTrain extends SubsystemBase {
       rightback.set(xAxis);
     }
     else{
-    leftback.set(-yAxis);
-    rightback.set(yAxis);
+      if (yAxis>limiter){
+        yAxis=limiter;
+      }
+      else if (yAxis<-limiter){
+        yAxis=-limiter;
+      }
+      else{
+        leftback.set(-yAxis);
+        rightback.set(yAxis);
+      }
     }
   }
   public void driveDistance(double distance){
@@ -54,9 +63,14 @@ public class DriveTrain extends SubsystemBase {
       }
     }
   }
+  public double Turbo(double Boost){
+    return Boost;
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
 
+  }
+  public void turnanddrive(Object xAxis, Object yAxis) {
   }
 }

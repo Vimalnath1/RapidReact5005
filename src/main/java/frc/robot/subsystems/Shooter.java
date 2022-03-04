@@ -34,32 +34,30 @@ public class Shooter extends SubsystemBase {
   private String colorString;
   ColorMatchResult match;
   private SparkMaxPIDController pidController;
-  private RelativeEncoder encoder;
-  private RelativeEncoder encoder1;
-  private static final int deviceID =3;
-  private static final int deviceID1 =2;
+  private RelativeEncoder leftencoder;
+  private RelativeEncoder rightencoder;
+  private static final int leftshooterdeviceID =3;
+  private static final int rightshooterdeviceID =2;
   private static final int countsPerRev = 4096;
 
   /** Creates a new Shooter. **/
   //Spark shooter1=new Spark(Constants.shooterrightnumber);
   //Spark shooter2=new Spark(Constants.shooterleftnumber);
   CANSparkMax leftshooter;
-  CANSparkMax shooter2;
+  CANSparkMax rightshooter;
 
   public Shooter() {
     colorMatcher.addColorMatch(blueBall);
     colorMatcher.addColorMatch(redBall);
     colorMatcher.setConfidenceThreshold(0.95);
-    leftshooter=new CANSparkMax(deviceID, MotorType.kBrushed);
-    shooter2=new CANSparkMax(deviceID1, MotorType.kBrushed);
-    /*encoder= shooter1.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, countsPerRev);
-    encoder1=shooter2.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, countsPerRev);
-    shooter1.restoreFactoryDefaults();
-    shooter2.restoreFactoryDefaults();
-    System.out.println(encoder.getVelocity());
-    System.out.println(encoder1.getVelocity());
-    pidController=shooter1.getPIDController();
-    pidController.setFeedbackDevice(encoder);
+    leftshooter=new CANSparkMax(leftshooterdeviceID, MotorType.kBrushed);
+    rightshooter=new CANSparkMax(rightshooterdeviceID, MotorType.kBrushed);
+    leftencoder= leftshooter.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, countsPerRev);
+    rightencoder=rightshooter.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, countsPerRev);
+    leftshooter.restoreFactoryDefaults();
+    rightshooter.restoreFactoryDefaults();
+    pidController=leftshooter.getPIDController();
+    pidController.setFeedbackDevice(leftencoder);
     double kP = 0.1; 
     double kI = 1e-4;
     double kD = 1; 
@@ -73,7 +71,7 @@ public class Shooter extends SubsystemBase {
     pidController.setIZone(kIz);
     pidController.setFF(kFF);
     pidController.setOutputRange(kMinOutput, kMaxOutput);
-    SmartDashboard.putNumber("Velocity", encoder.getVelocity());*/
+    SmartDashboard.putNumber("Velocity", leftencoder.getVelocity());
   }
   public String getColor(){
     detectedColor=colorsensor.getColor();
@@ -91,7 +89,7 @@ public class Shooter extends SubsystemBase {
   }
   public void shootball(double speed){
     leftshooter.set(speed);
-    //shooter2.set(-speed);
+    rightshooter.set(-speed);
   }
 
   @Override

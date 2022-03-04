@@ -4,16 +4,16 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.DriveTrain;
 
-public class ShootBall extends CommandBase {
-  Shooter shooter;
-  String ballcolor;
-  /** Creates a new ShootBall. */
-  public ShootBall(Shooter subsystem) {
-    shooter=subsystem;
-    addRequirements(shooter);
+public class Turbo extends CommandBase {
+  DriveTrain drivetrain;
+  /** Creates a new Turbo. */
+  public Turbo(DriveTrain subsytem) {
+    drivetrain=subsytem;
+    addRequirements(drivetrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -24,16 +24,12 @@ public class ShootBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.shootball(0.7);
-    ballcolor=shooter.getColor();
-    System.out.println(ballcolor);
+    drivetrain.turnanddrive(RobotContainer.controller.getRawAxis(0),RobotContainer.controller.getRawAxis(1),1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    shooter.shootball(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

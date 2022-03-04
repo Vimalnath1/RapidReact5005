@@ -25,14 +25,18 @@ public class RobotContainer {
   private final Shooter m_shooter=new Shooter();
   private  final Loader m_loader = new Loader();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final Climber m_climber = new Climber();
 
-  private Joystick controller=new Joystick(1);
+  public static Joystick controller=new Joystick(1);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
     m_drivetrain.setDefaultCommand(
       new DefaultDrive(m_drivetrain,()->controller.getRawAxis(0), ()->controller.getRawAxis(1))
+      );
+    m_climber.setDefaultCommand(
+      new RobotClimb(m_climber,()->-controller.getRawAxis(2))
       );
   }
 
@@ -49,6 +53,9 @@ public class RobotContainer {
     new JoystickButton(controller,6).whileHeld(new ReleaseLoader(m_loader,true));
     new JoystickButton(controller,7).whileHeld(new ReleaseLoader(m_loader,false));
     //new JoystickButton(controller,5).whenHeld(new DriveToGoal(m_drivetrain));
+    new JoystickButton(controller, 3).whileHeld(new Turbo(m_drivetrain));
+    new JoystickButton(controller, 8).whenPressed(new StopClimber(m_climber));
+    new JoystickButton(controller, 9).whenPressed(new RunClimber(m_climber));
   }
 
   /**

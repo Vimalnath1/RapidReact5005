@@ -4,21 +4,21 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.DriveTrain;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.util.function.DoubleSupplier;
 
-public class DefaultDrive extends CommandBase {
-  private final DriveTrain drivetrain;
-  private final DoubleSupplier leftvalue;
-  private final DoubleSupplier rightvalue;
-  /** Creates a new DefaultDrive. */
-  public DefaultDrive(DriveTrain subsystem,DoubleSupplier LeftValue,DoubleSupplier RightValue) {
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Climber;
+
+public class RobotClimb extends CommandBase {
+  Climber climber;
+  DoubleSupplier axis;
+  public static boolean Run=false;
+  /** Creates a new RobotClimb. */
+  public RobotClimb(Climber subsystem, DoubleSupplier Axis) {
+    climber=subsystem;
+    axis=Axis;
+    addRequirements(climber);
     // Use addRequirements() here to declare subsystem dependencies.
-    drivetrain=subsystem;
-    leftvalue=LeftValue;
-    rightvalue=RightValue;
-    addRequirements(drivetrain);
   }
 
   // Called when the command is initially scheduled.
@@ -28,15 +28,13 @@ public class DefaultDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //drivetrain.tankdrive(leftvalue.getAsDouble(),rightvalue.getAsDouble());
-    drivetrain.turnanddrive(leftvalue.getAsDouble(), rightvalue.getAsDouble(),0.75);
+    climber.robotclimb(axis.getAsDouble(),Run);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drivetrain.tankdrive(0,0);
-    drivetrain.turnanddrive(0,0);
+    climber.robotclimb(0,false);
   }
 
   // Returns true when the command should end.
