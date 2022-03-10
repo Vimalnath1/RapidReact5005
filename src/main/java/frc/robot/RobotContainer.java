@@ -26,6 +26,7 @@ public class RobotContainer {
   private  final Loader m_loader = new Loader();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final Climber m_climber = new Climber();
+  private final Feeder m_feeder=new Feeder();
 
   public static Joystick controller=new Joystick(1);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -56,6 +57,7 @@ public class RobotContainer {
     new JoystickButton(controller, 3).whileHeld(new Turbo(m_drivetrain));
     new JoystickButton(controller, 8).whenPressed(new StopClimber(m_climber));
     new JoystickButton(controller, 9).whenPressed(new RunClimber(m_climber));
+    new JoystickButton(controller, 2).whileHeld(new FeedBall(m_feeder));
   }
 
   /**

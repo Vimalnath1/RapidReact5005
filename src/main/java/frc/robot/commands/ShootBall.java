@@ -5,11 +5,13 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.Shooter;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ShootBall extends CommandBase {
   Shooter shooter;
   String ballcolor;
+  Timer timer;
   /** Creates a new ShootBall. */
   public ShootBall(Shooter subsystem) {
     shooter=subsystem;

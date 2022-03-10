@@ -34,11 +34,11 @@ public class LineUpToShoot extends CommandBase {
     targetVisible=NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
     System.out.println(targetVisible);
     while (targetVisible==0.0){
-      drivetrain.turnanddrive(0.5,0.5);
+      drivetrain.turnanddrive(0.5,0.5,0.5);
       targetVisible=NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
     }
     if (targetVisible==1.0){
-      drivetrain.turnanddrive(0.5,0.5);
+      drivetrain.turnanddrive(0.5,0.5,0.5);
     }
   }
 
@@ -55,13 +55,13 @@ public class LineUpToShoot extends CommandBase {
       double distanceFromGoal=getDistanceFromGoal(limelightheight, 104, limelightangle, y);
       
       if (x>0.0/*if the crosshair is too right (change value if wrong)*/){
-        drivetrain.turnanddrive(minimumChange,minimumChange);      
+        drivetrain.turnanddrive(minimumChange,minimumChange,minimumChange);      
       }
       else if (x<0.0/*if the crosshair is too left (change value if wrong)*/){
-       drivetrain.turnanddrive(-minimumChange,-minimumChange);
+       drivetrain.turnanddrive(-minimumChange,-minimumChange,minimumChange);
       }
       else{
-        drivetrain.turnanddrive(0,0);
+        drivetrain.turnanddrive(0,0,0);
       }
       
       /*if (distanceFromGoal-desiredDistance>0.0 || distanceFromGoal-desiredDistance<0.0){

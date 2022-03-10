@@ -17,25 +17,31 @@ public class DriveTrain extends SubsystemBase {
   Encoder drivingEncoder; 
   /** Creates a new DriveTrain. */
   public DriveTrain() {
-    //leftfront=new Spark(1);
-    //rightfront=new Spark(2);
+    leftfront=new Spark(Constants.leftfrontnumber);
+    rightfront=new Spark(Constants.rightfrontnumber);
     leftback=new Spark(Constants.leftbacknumber);
     rightback=new Spark(Constants.rightbacknumber);
-    drivingEncoder= new Encoder(0, 1);
+    drivingEncoder= new Encoder(2, 3);
   }
   public void tankdrive(double leftamount,double rightamount){
     leftback.set(leftamount);
+    leftfront.set(leftamount);
     rightback.set(rightamount);
+    rightfront.set(rightamount);
   }
   public void turnanddrive(double xAxis,double yAxis, double limiter){
 
     if (xAxis<-0.5){
+      leftfront.set(xAxis);
       leftback.set(xAxis);
+      rightfront.set(xAxis);
       rightback.set(xAxis);
     }
     else if (xAxis>0.5){
       leftback.set(xAxis);
       rightback.set(xAxis);
+      leftfront.set(xAxis);
+      rightfront.set(xAxis);
     }
     else{
       if (yAxis>limiter){
@@ -47,6 +53,8 @@ public class DriveTrain extends SubsystemBase {
       else{
         leftback.set(-yAxis);
         rightback.set(yAxis);
+        leftfront.set(-yAxis);
+        rightfront.set(yAxis);
       }
     }
   }
@@ -56,10 +64,10 @@ public class DriveTrain extends SubsystemBase {
     while(position-distance!=0){
       position=drivingEncoder.getDistance();
       if (position-distance<0){
-        turnanddrive(-1, -1);
+        turnanddrive(-1, -1,1);
       }
       else if (position-distance>0){
-        turnanddrive(1,1);
+        turnanddrive(1,1,1);
       }
     }
   }
@@ -70,7 +78,5 @@ public class DriveTrain extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
 
-  }
-  public void turnanddrive(Object xAxis, Object yAxis) {
   }
 }

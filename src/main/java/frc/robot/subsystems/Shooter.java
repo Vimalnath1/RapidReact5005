@@ -36,7 +36,7 @@ public class Shooter extends SubsystemBase {
   private SparkMaxPIDController pidController;
   private RelativeEncoder leftencoder;
   private RelativeEncoder rightencoder;
-  private static final int leftshooterdeviceID =3;
+  private static final int leftshooterdeviceID =4;
   private static final int rightshooterdeviceID =2;
   private static final int countsPerRev = 4096;
 
