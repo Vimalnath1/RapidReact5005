@@ -19,6 +19,5 @@ public final class Constants {
     public static final int leftfrontnumber = 2;
     public static final int rightfrontnumber = 1;
     public static final int windowmotornumber = 4;
-    public static final int loadermotornumber = 5;
     public static final int feedermotornumber = 6;
 }

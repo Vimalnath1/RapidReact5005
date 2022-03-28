@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -11,9 +14,9 @@ import frc.robot.Constants;
 public class Loader extends SubsystemBase {
   /** Creates a new Loader. */
   Spark windowmotor;
-  Spark loadermotor;
+  CANSparkMax loadermotor;
   public Loader() {
-    loadermotor=new Spark(Constants.loadermotornumber);
+    loadermotor=new CANSparkMax(1,MotorType.kBrushed);
     windowmotor=new Spark(Constants.windowmotornumber);
   }
   public void loadball(double speed){

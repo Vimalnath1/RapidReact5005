@@ -36,9 +36,6 @@ public class RobotContainer {
     m_drivetrain.setDefaultCommand(
       new DefaultDrive(m_drivetrain,()->controller.getRawAxis(0), ()->controller.getRawAxis(1))
       );
-    m_climber.setDefaultCommand(
-      new RobotClimb(m_climber,()->-controller.getRawAxis(2))
-      );
   }
 
   /**
@@ -48,16 +45,16 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(controller,1).whileHeld(new ShootBall(m_shooter));
-    //new JoystickButton(controller,3).whileHeld(new LineUpToShoot(m_drivetrain));
+    new JoystickButton(controller,1).whileHeld(new LineUpToShoot(m_drivetrain,m_feeder,m_shooter));
+    new JoystickButton(controller, 2).whileHeld(new FeedBall(m_feeder));
+    new JoystickButton(controller, 3).whileHeld(new Turbo(m_drivetrain));
     new JoystickButton(controller,4).whileHeld(new LoadBall(m_loader));
+    new JoystickButton(controller,5).whileHeld(new ShootBall(m_shooter));
     new JoystickButton(controller,6).whileHeld(new ReleaseLoader(m_loader,true));
     new JoystickButton(controller,7).whileHeld(new ReleaseLoader(m_loader,false));
-    //new JoystickButton(controller,5).whenHeld(new DriveToGoal(m_drivetrain));
-    new JoystickButton(controller, 3).whileHeld(new Turbo(m_drivetrain));
-    new JoystickButton(controller, 8).whenPressed(new StopClimber(m_climber));
-    new JoystickButton(controller, 9).whenPressed(new RunClimber(m_climber));
-    new JoystickButton(controller, 2).whileHeld(new FeedBall(m_feeder));
+    new JoystickButton(controller, 8).whileHeld(new RobotClimb(m_climber,0.75));
+    new JoystickButton(controller, 9).whileHeld(new RobotClimb(m_climber,-0.5));
+
   }
 
   /**

@@ -30,7 +30,6 @@ public class DriveTrain extends SubsystemBase {
     rightfront.set(rightamount);
   }
   public void turnanddrive(double xAxis,double yAxis, double limiter){
-
     if (xAxis<-0.5){
       leftfront.set(xAxis);
       leftback.set(xAxis);
@@ -55,19 +54,6 @@ public class DriveTrain extends SubsystemBase {
         rightback.set(yAxis);
         leftfront.set(-yAxis);
         rightfront.set(yAxis);
-      }
-    }
-  }
-  public void driveDistance(double distance){
-    drivingEncoder.setDistancePerPulse(5);
-    double position=drivingEncoder.getDistance();
-    while(position-distance!=0){
-      position=drivingEncoder.getDistance();
-      if (position-distance<0){
-        turnanddrive(-1, -1,1);
-      }
-      else if (position-distance>0){
-        turnanddrive(1,1,1);
       }
     }
   }

@@ -8,6 +8,7 @@ import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.util.function.DoubleSupplier;
 
+
 public class DefaultDrive extends CommandBase {
   private final DriveTrain drivetrain;
   private final DoubleSupplier leftvalue;
@@ -35,7 +36,6 @@ public class DefaultDrive extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drivetrain.tankdrive(0,0);
     drivetrain.turnanddrive(0,0,0);
   }
 

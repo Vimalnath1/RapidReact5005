@@ -22,7 +22,7 @@ public class LoadBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    loader.loadball(0.5);
+    loader.loadball(-0.63);
   }
 
   // Called once the command ends or is interrupted.

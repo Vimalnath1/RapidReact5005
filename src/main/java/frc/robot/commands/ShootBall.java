@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import frc.robot.Robot;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -26,10 +27,26 @@ public class ShootBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.shootball(0.7);
     ballcolor=shooter.getColor();
-    System.out.println(ballcolor);
+    /*if (Robot.color!="None"){
+      if (ballcolor==Robot.color){
+        shooter.shootball(0.60);
+      }
+      else{
+        shooter.shootball(0.2);
+      }
+    }
+    else{
+      shooter.shootball(0.60);
+    }*/
+    shooter.shootball(0.6);
   }
+    //System.out.println(ballcolor);
+    //68%-19ft
+    //63%-11ft
+    //58%-5ft
+    //40% for 1 point at 5ft 
+  
 
   // Called once the command ends or is interrupted.
   @Override

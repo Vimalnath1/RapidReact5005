@@ -15,7 +15,7 @@ public class Feeder extends SubsystemBase {
     feedermotor=new Spark(Constants.feedermotornumber);
   }
   public void feedball(double speed){
-    feedermotor.set(speed);
+    feedermotor.set(-speed);
   }
   @Override
   public void periodic() {

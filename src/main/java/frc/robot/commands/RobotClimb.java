@@ -4,20 +4,18 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
 public class RobotClimb extends CommandBase {
   Climber climber;
-  DoubleSupplier axis;
-  public static boolean Run=false;
+  double speed;
 
   /** Creates a new RobotClimb. */
-  public RobotClimb(Climber subsystem, DoubleSupplier Axis) {
+  public RobotClimb(Climber subsystem, double Speed) {
     climber=subsystem;
-    axis=Axis;
+    speed=Speed;
     addRequirements(climber);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -29,13 +27,13 @@ public class RobotClimb extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.robotclimb(axis.getAsDouble(),Run);
+    climber.robotclimb(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climber.robotclimb(0,false);
+    climber.robotclimb(0);
   }
 
   // Returns true when the command should end.
