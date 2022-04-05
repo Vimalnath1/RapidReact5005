@@ -22,13 +22,8 @@ public class Loader extends SubsystemBase {
   public void loadball(double speed){
     loadermotor.set(-speed);
   }
-  public void releaseloader(double speed, boolean isInverted){
-    if (isInverted==true){
-    windowmotor.set(-speed);
-    }
-    else{
-      windowmotor.set(speed);
-    }
+  public void releaseloader(double speed, double isInverted){
+    windowmotor.set(speed);
   }
 
   @Override

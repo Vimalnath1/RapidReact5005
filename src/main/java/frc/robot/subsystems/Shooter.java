@@ -5,26 +5,16 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-import frc.robot.commands.LineUpToShoot;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxRelativeEncoder;
-import com.revrobotics.SparkMaxAlternateEncoder;
-
-import java.util.List;
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
-import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.revrobotics.SparkMaxRelativeEncoder.Type;
 
 
 public class Shooter extends SubsystemBase {
@@ -33,8 +23,6 @@ public class Shooter extends SubsystemBase {
   private final ColorMatch colorMatcher = new ColorMatch();
   public static final Color blueBall = Color.kBlue;
   public static final Color redBall = Color.kRed;
-  public static final Color otherstuff = Color.kYellow;
-  public static final Color moreotherstuff = Color.kGray;
   private Color detectedColor;
   private String colorString;
   ColorMatchResult match;

@@ -12,10 +12,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ShootBall extends CommandBase {
   Shooter shooter;
   String ballcolor;
+  double shootingspeed;
   Timer timer;
   /** Creates a new ShootBall. */
-  public ShootBall(Shooter subsystem) {
+  public ShootBall(Shooter subsystem, double speed) {
     shooter=subsystem;
+    shootingspeed=speed;
     addRequirements(shooter);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -30,16 +32,19 @@ public class ShootBall extends CommandBase {
     ballcolor=shooter.getColor();
     /*if (Robot.color!="None"){
       if (ballcolor==Robot.color){
-        shooter.shootball(0.60);
+        shooter.shootball(0.58);
       }
       else{
         shooter.shootball(0.2);
       }
     }
     else{
-      shooter.shootball(0.60);
+      shooter.shootball(0.58);
     }*/
-    shooter.shootball(0.6);
+    shooter.shootball(shootingspeed);
+    //Actual:116 Robot Read:113.445700-60%
+    //Actual:121 Robot Read:165.715930-68%
+    //Actual:126 Robot Read:165.715930-75%
   }
     //System.out.println(ballcolor);
     //68%-19ft

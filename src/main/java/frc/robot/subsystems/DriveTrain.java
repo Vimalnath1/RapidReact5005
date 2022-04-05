@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Encoder;
 
 public class DriveTrain extends SubsystemBase {
@@ -30,13 +31,19 @@ public class DriveTrain extends SubsystemBase {
     rightfront.set(rightamount);
   }
   public void turnanddrive(double xAxis,double yAxis, double limiter){
-    if (xAxis<-0.5){
+    if (xAxis<-0.3){
+      if (xAxis<-limiter){
+        xAxis=-limiter;
+      }
       leftfront.set(xAxis);
       leftback.set(xAxis);
       rightfront.set(xAxis);
       rightback.set(xAxis);
     }
-    else if (xAxis>0.5){
+    else if (xAxis>0.3){
+      if (xAxis>limiter){
+        xAxis=limiter;
+      }
       leftback.set(xAxis);
       rightback.set(xAxis);
       leftfront.set(xAxis);
@@ -56,6 +63,8 @@ public class DriveTrain extends SubsystemBase {
         rightfront.set(yAxis);
       }
     }
+    SmartDashboard.putNumber("E",xAxis);
+    SmartDashboard.putNumber("B",yAxis);
   }
   public double Turbo(double Boost){
     return Boost;

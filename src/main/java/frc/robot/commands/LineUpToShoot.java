@@ -5,12 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Robot;
 import frc.robot.subsystems.*;
+import frc.robot.commands.AutoFeed;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Timer;
 
 public class LineUpToShoot extends CommandBase {
   NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
@@ -18,14 +21,17 @@ public class LineUpToShoot extends CommandBase {
   private final Feeder feeder;
   private final Shooter shooter;
   double targetVisible;
-  double minimumChange=0.6;// from 0 to 1 is motor speed
+  double minimumChange=0.35;// from 0 to 1 is motor speed
   double limelightangle=38  ;  //in degrees
   double limelightheight=22; //in inches
   NetworkTableEntry tv;
   public static double shooterspeed;
+  double distanceFromGoal;
   double rpm;
-  public static boolean usingVision=false;
   String ballcolor;
+  Timer timer;
+  double x;
+  NetworkTableEntry tx;
   /** Creates a new LineUpToShoot. */
   public LineUpToShoot(DriveTrain subsystem, Feeder feedersubsystem, Shooter shootersubsytem) {
     drivetrain=subsystem;
@@ -43,57 +49,67 @@ public class LineUpToShoot extends CommandBase {
     /*while (targetVisible==0.0){
       drivetrain.turnanddrive(0.5,0.5,0.5);
       targetVisible=NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
-    }
-    /*if (targetVisible==1.0){
-      drivetrain.turnanddrive(0.5,0.5,0.5);
     }*/
-    usingVision=true;
+    if (targetVisible==1.0){
+      tx = table.getEntry("tx");
+      NetworkTableEntry ty = table.getEntry("ty");
+      x = tx.getDouble(0.0);
+      double y = ty.getDouble(0.0);
+      distanceFromGoal=getDistanceFromGoal(22, 101, 37, y);
+      shooterspeed=((0.0008333333333*distanceFromGoal)+0.58);
+      rpm=shooterspeed*5310;
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     ballcolor=shooter.getColor();
-    //if (Robot.color=="None" || ballcolor==Robot.color){
+    
+    if (Robot.color=="None" || ballcolor==Robot.color){
     if (targetVisible==1.0){
-      NetworkTableEntry tx = table.getEntry("tx");
-      NetworkTableEntry ty = table.getEntry("ty");
-      double x = tx.getDouble(0.0);
-      double y = ty.getDouble(0.0);
-      double distanceFromGoal=getDistanceFromGoal(22, 101, 38, y);
-      rpm=((7.039124597*distanceFromGoal)+2665.979323);
-      shooterspeed=rpm/5310;
-      /*if (x>0.0){
-        drivetrain.turnanddrive(minimumChange,minimumChange,minimumChange);      
+      if (x>1.0){
+        drivetrain.turnanddrive(minimumChange,minimumChange,1); 
+        tx=table.getEntry("tx");
+        x = tx.getDouble(0.0);     
       }
-      else if (x<0.0){
-       drivetrain.turnanddrive(-minimumChange,-minimumChange,minimumChange);
+      else if (x<-1.0){
+       drivetrain.turnanddrive(-minimumChange,-minimumChange,1);
+       tx=table.getEntry("tx");
+       x = tx.getDouble(0.0);   
       }
       else{
         drivetrain.turnanddrive(0,0,0);
       }
-      if (x==0.0){*/
-        SmartDashboard.putNumber("Distance", distanceFromGoal);
-        SmartDashboard.putNumber("speed",shooterspeed);
-        SmartDashboard.putNumber("rpm",rpm);   
+      if (x>-1.0 && x<1.0){
+      SmartDashboard.putNumber("Distance", distanceFromGoal);
+      SmartDashboard.putNumber("speed",shooterspeed);
+      SmartDashboard.putNumber("rpm",rpm);   
       shooter.shootball(shooterspeed);
-      if ((-1*Shooter.rightencoder.getVelocity())-500>=rpm && Shooter.leftencoder.getVelocity()>=rpm){
+      if ((-1*Shooter.rightencoder.getVelocity())>=rpm && Shooter.leftencoder.getVelocity()>=rpm){
           feeder.feedball(1);
       }
+    }
+      //new AutoFeed(feeder, shooter, shooterspeed);
       
    }
+  //}
     else if (targetVisible==0){
       /*
       drivetrain.turnanddrive(minimumChange,minimumChange,minimumChange);
       targetVisible= NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
       */
-      System.out.println("Your bad");
+      //new AutoFeed(feeder, shooter, 0.7);
+      System.out.println("No tape");
     }
-  //}
-  /*else if (ballcolor!=Robot.color){
-      shooter.shootball(0.2);
-      feeder.feedball(1);
-    }*/
+  }
+  else if (ballcolor!=Robot.color){
+      shooter.shootball(0.4);
+      rpm=0.4*5310;
+      if ((-1*Shooter.rightencoder.getVelocity())>=rpm && Shooter.leftencoder.getVelocity()>=rpm){
+        feeder.feedball(1);
+    }
+    }
   }
 
                                                                                                                         //This is y

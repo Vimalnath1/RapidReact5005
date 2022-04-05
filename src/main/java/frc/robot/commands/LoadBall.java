@@ -6,9 +6,11 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Loader;
+import edu.wpi.first.wpilibj.Timer;
 
 public class LoadBall extends CommandBase {
   Loader loader;
+  Timer timer;
   /** Creates a new LoadBall. */
   public LoadBall(Loader subsystem) {
     loader=subsystem;
@@ -22,7 +24,7 @@ public class LoadBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    loader.loadball(-0.63);
+    loader.loadball(-0.5);
   }
 
   // Called once the command ends or is interrupted.

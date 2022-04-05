@@ -27,6 +27,7 @@ public class RobotContainer {
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final Climber m_climber = new Climber();
   private final Feeder m_feeder=new Feeder();
+  private final AutonomousCourse m_autonomouscourse=new AutonomousCourse(m_shooter,m_feeder,m_drivetrain,m_loader);
 
   public static Joystick controller=new Joystick(1);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -49,12 +50,16 @@ public class RobotContainer {
     new JoystickButton(controller, 2).whileHeld(new FeedBall(m_feeder));
     new JoystickButton(controller, 3).whileHeld(new Turbo(m_drivetrain));
     new JoystickButton(controller,4).whileHeld(new LoadBall(m_loader));
-    new JoystickButton(controller,5).whileHeld(new ShootBall(m_shooter));
-    new JoystickButton(controller,6).whileHeld(new ReleaseLoader(m_loader,true));
-    new JoystickButton(controller,7).whileHeld(new ReleaseLoader(m_loader,false));
-    new JoystickButton(controller, 8).whileHeld(new RobotClimb(m_climber,0.75));
+    new JoystickButton(controller,5).whileHeld(new ShootBall(m_shooter,0.75));
+    new JoystickButton(controller,6).whileHeld(new ReleaseLoader(m_loader,1));
+    new JoystickButton(controller,7).whileHeld(new ReleaseLoader(m_loader,-1));
+    //new JoystickButton(controller, 7).whenPressed(new ReleaseLoader(m_loader,-1));
+    //new JoystickButton(controller, 7).whileHeld(new LoadBall(m_loader));
+    //new JoystickButton(controller, 7).whenReleased(new ReleaseLoader(m_loader, 1));
+    new JoystickButton(controller, 8).whileHeld(new RobotClimb(m_climber,1));
     new JoystickButton(controller, 9).whileHeld(new RobotClimb(m_climber,-0.5));
-
+    new JoystickButton(controller, 10).whenPressed(new AutonomousCourse(m_shooter,m_feeder,m_drivetrain,m_loader));
+   
   }
 
   /**
@@ -64,6 +69,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return m_autonomouscourse;
   }
 }

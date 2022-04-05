@@ -7,12 +7,13 @@ package frc.robot.commands;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.util.function.DoubleSupplier;
-
+import edu.wpi.first.wpilibj.Timer;
 
 public class DefaultDrive extends CommandBase {
   private final DriveTrain drivetrain;
   private final DoubleSupplier leftvalue;
   private final DoubleSupplier rightvalue;
+  Timer timer;
   /** Creates a new DefaultDrive. */
   public DefaultDrive(DriveTrain subsystem,DoubleSupplier LeftValue,DoubleSupplier RightValue) {
     // Use addRequirements() here to declare subsystem dependencies.

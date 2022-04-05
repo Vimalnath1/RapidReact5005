@@ -9,9 +9,9 @@ import frc.robot.subsystems.Loader;
 
 public class ReleaseLoader extends CommandBase {
   private Loader loader;
-  private boolean direction;
+  private double direction;
   /** Creates a new ReleaseLoader. */
-  public ReleaseLoader(Loader subsystem, boolean isInverted) {
+  public ReleaseLoader(Loader subsystem, double isInverted) {
     loader=subsystem;
     direction=isInverted;
     addRequirements(loader);
@@ -25,7 +25,7 @@ public class ReleaseLoader extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    loader.releaseloader(1,direction);
+    loader.releaseloader(direction,0);
   }
 
   // Called once the command ends or is interrupted.
