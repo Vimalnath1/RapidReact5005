@@ -17,13 +17,16 @@ public class AutonomousCourse extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ShootBall(shooter, 0.59).withTimeout(2),
+      //new DefaultDrive(drivetrain, ()->0.2, ()->0.4).withTimeout(0.5),
+      new TankDrive(drivetrain, ()->-0.4, ()->0.425).withTimeout(0.5),
+      new ShootBall(shooter, 0.59).withTimeout(2.5),
       new GoodAutonomousCourse(shooter, feeder,0.59),
-      new DefaultDrive(drivetrain, ()->0.4, ()->0.3).withTimeout(2),
       new ReleaseLoader(loader, -1).withTimeout(1),
-      new LoadBall(loader).withTimeout(2.5),
-      new ShootBall(shooter, 0.63).withTimeout(2),
-      new GoodAutonomousCourse(shooter, feeder,0.63)
+      new DriveandLoad(drivetrain, loader),
+      new LoadBall(loader, -0.8).withTimeout(2),
+      new ShootBall(shooter, 0.65).withTimeout(2.5),
+      new GoodAutonomousCourse(shooter, feeder,0.63),
+      new ReleaseLoader(loader, 1).withTimeout(1)
       /*new DefaultDrive(drivetrain,()->1,()->1).withTimeout(10),
       new LoadBall(loader).withTimeout(10),
       new LineUpToShoot(drivetrain,feeder,shooter)*/

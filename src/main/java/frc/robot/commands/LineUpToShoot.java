@@ -31,6 +31,7 @@ public class LineUpToShoot extends CommandBase {
   String ballcolor;
   Timer timer;
   double x;
+  double y;
   NetworkTableEntry tx;
   /** Creates a new LineUpToShoot. */
   public LineUpToShoot(DriveTrain subsystem, Feeder feedersubsystem, Shooter shootersubsytem) {
@@ -54,7 +55,7 @@ public class LineUpToShoot extends CommandBase {
       tx = table.getEntry("tx");
       NetworkTableEntry ty = table.getEntry("ty");
       x = tx.getDouble(0.0);
-      double y = ty.getDouble(0.0);
+      y = ty.getDouble(0.0);
       distanceFromGoal=getDistanceFromGoal(22, 101, 37, y);
       shooterspeed=((0.0008333333333*distanceFromGoal)+0.58);
       rpm=shooterspeed*5310;
@@ -72,14 +73,18 @@ public class LineUpToShoot extends CommandBase {
         drivetrain.turnanddrive(minimumChange,minimumChange,1); 
         tx=table.getEntry("tx");
         x = tx.getDouble(0.0);     
+        
       }
       else if (x<-1.0){
        drivetrain.turnanddrive(-minimumChange,-minimumChange,1);
        tx=table.getEntry("tx");
-       x = tx.getDouble(0.0);   
+       x = tx.getDouble(0.0); 
       }
       else{
         drivetrain.turnanddrive(0,0,0);
+        distanceFromGoal=getDistanceFromGoal(22, 101, 37, y);
+        shooterspeed=((0.0008333333333*distanceFromGoal)+0.58);
+        rpm=shooterspeed*5310;
       }
       if (x>-1.0 && x<1.0){
       SmartDashboard.putNumber("Distance", distanceFromGoal);
@@ -100,7 +105,7 @@ public class LineUpToShoot extends CommandBase {
       targetVisible= NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
       */
       //new AutoFeed(feeder, shooter, 0.7);
-      System.out.println("No tape");
+      SmartDashboard.putString("Tape", "None");
     }
   }
   else if (ballcolor!=Robot.color){

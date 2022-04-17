@@ -30,13 +30,23 @@ public class RobotContainer {
   private final AutonomousCourse m_autonomouscourse=new AutonomousCourse(m_shooter,m_feeder,m_drivetrain,m_loader);
 
   public static Joystick controller=new Joystick(1);
+  public static Joystick newcontroller=new Joystick(0);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+    if (controller.getRawAxis(0)>0 || controller.getRawAxis(1)>0 || controller.getRawAxis(0)<0 || controller.getRawAxis(1)<0){
     m_drivetrain.setDefaultCommand(
       new DefaultDrive(m_drivetrain,()->controller.getRawAxis(0), ()->controller.getRawAxis(1))
+    //new DefaultDrive(m_drivetrain,()->controller.getRawAxis(0), ()->controller.getRawAxis(1))
       );
+    }
+    else{
+      m_drivetrain.setDefaultCommand(
+      new DefaultDrive(m_drivetrain,()->newcontroller.getRawAxis(0), ()->newcontroller.getRawAxis(1))
+    //new DefaultDrive(m_drivetrain,()->controller.getRawAxis(0), ()->newcontroller.getRawAxis(1))
+      );
+    }
   }
 
   /**
@@ -49,7 +59,7 @@ public class RobotContainer {
     new JoystickButton(controller,1).whileHeld(new LineUpToShoot(m_drivetrain,m_feeder,m_shooter));
     new JoystickButton(controller, 2).whileHeld(new FeedBall(m_feeder));
     new JoystickButton(controller, 3).whileHeld(new Turbo(m_drivetrain));
-    new JoystickButton(controller,4).whileHeld(new LoadBall(m_loader));
+    new JoystickButton(controller,4).whileHeld(new LoadBall(m_loader,0.6));
     new JoystickButton(controller,5).whileHeld(new ShootBall(m_shooter,0.75));
     new JoystickButton(controller,6).whileHeld(new ReleaseLoader(m_loader,1));
     new JoystickButton(controller,7).whileHeld(new ReleaseLoader(m_loader,-1));
@@ -60,6 +70,19 @@ public class RobotContainer {
     new JoystickButton(controller, 9).whileHeld(new RobotClimb(m_climber,-0.5));
     new JoystickButton(controller, 10).whenPressed(new AutonomousCourse(m_shooter,m_feeder,m_drivetrain,m_loader));
    
+
+    //For the other joystick:
+    new JoystickButton(newcontroller,1).whileHeld(new LineUpToShoot(m_drivetrain,m_feeder,m_shooter));
+    new JoystickButton(newcontroller,9).whileHeld(new LoadBall(m_loader,-0.7));
+    new JoystickButton(newcontroller,2).whileHeld(new LoadBall(m_loader,-1));
+    new JoystickButton(newcontroller,5).whileHeld(new ReleaseLoader(m_loader,1));
+    new JoystickButton(newcontroller,3).whileHeld(new ReleaseLoader(m_loader,-1));
+    new JoystickButton(newcontroller,4).whileHeld(new RobotClimb(m_climber,1));
+    new JoystickButton(newcontroller,6).whileHeld(new RobotClimb(m_climber,-0.5));
+    new JoystickButton(newcontroller,11).whileHeld(new Turbo(m_drivetrain));
+    new JoystickButton(newcontroller,7).whenPressed(new AutoFeed(m_feeder, m_shooter,0.6));
+    new JoystickButton(newcontroller,8).whileHeld(new FeedBall(m_feeder));
+    new JoystickButton(newcontroller, 10).whenPressed(new AutonomousCourse(m_shooter,m_feeder,m_drivetrain,m_loader));
   }
 
   /**

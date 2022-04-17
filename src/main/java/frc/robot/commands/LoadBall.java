@@ -11,9 +11,12 @@ import edu.wpi.first.wpilibj.Timer;
 public class LoadBall extends CommandBase {
   Loader loader;
   Timer timer;
+  double speed;
   /** Creates a new LoadBall. */
-  public LoadBall(Loader subsystem) {
+  public LoadBall(Loader subsystem, double loadspeed) {
     loader=subsystem;
+    speed=loadspeed;
+    addRequirements(loader);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -24,7 +27,7 @@ public class LoadBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    loader.loadball(-0.5);
+    loader.loadball(speed);
   }
 
   // Called once the command ends or is interrupted.

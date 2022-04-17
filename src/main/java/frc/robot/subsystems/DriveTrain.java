@@ -63,8 +63,8 @@ public class DriveTrain extends SubsystemBase {
         rightfront.set(yAxis);
       }
     }
-    SmartDashboard.putNumber("E",xAxis);
-    SmartDashboard.putNumber("B",yAxis);
+    SmartDashboard.putNumber("X Value",xAxis);
+    SmartDashboard.putNumber("Y Value",yAxis);
   }
   public double Turbo(double Boost){
     return Boost;

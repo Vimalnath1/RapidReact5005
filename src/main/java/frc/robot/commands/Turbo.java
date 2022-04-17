@@ -24,7 +24,7 @@ public class Turbo extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.turnanddrive(RobotContainer.controller.getRawAxis(0),RobotContainer.controller.getRawAxis(1),1);
+    drivetrain.turnanddrive(RobotContainer.newcontroller.getRawAxis(0),RobotContainer.newcontroller.getRawAxis(1),1);
   }
 
   // Called once the command ends or is interrupted.
